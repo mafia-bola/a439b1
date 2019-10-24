@@ -17,6 +17,7 @@ class CreateJabatansTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama_jabatan');
             $table->string('eselon');
+            $table->string('status');
             $table->timestamps();
         });
     }

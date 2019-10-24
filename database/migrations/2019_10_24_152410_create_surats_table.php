@@ -13,7 +13,7 @@ class CreateSuratsTable extends Migration
      */
     public function up()
     {
-        Schema::create('surats', function (Blueprint $table) {
+        Schema::create('surat', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('no_surat');
             $table->bigInteger('kode_surat_id')->unsigned();
@@ -36,6 +36,6 @@ class CreateSuratsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surats');
+        Schema::dropIfExists('surat');
     }
 }

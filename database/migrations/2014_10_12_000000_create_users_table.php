@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');
             $table->string('status');
+            $table->string('role');
             $table->bigInteger('jabatan_id')->unsigned();
             $table->bigInteger('bidang_id')->unsigned();
             $table->rememberToken();

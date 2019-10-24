@@ -16,6 +16,7 @@ class CreateBidangsTable extends Migration
         Schema::create('bidang', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama_bidang');
+            $table->string('status');
             $table->timestamps();
         });
     }
