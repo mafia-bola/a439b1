@@ -16,8 +16,11 @@ class CreateKodeSuratsTable extends Migration
         Schema::create('kode_surat', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('kode_surat');
+            $table->string('keterangan');
             $table->bigInteger('parent_id')->nullable();
             $table->timestamps();
+            
+            $table->foreign('parent_id')->references('id')->on('kode_surat');
         });
     }
 
