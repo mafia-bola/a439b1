@@ -48,11 +48,11 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="{{url('dashboard')}}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>LT</span>
+                <span class="logo-mini"></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>KPPN</b></span>
+                <span class="logo-lg"><b>SISUMAKER</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -67,7 +67,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="{{Auth::guard('admin')->user()->foto != '' ? asset('image').'/'.Auth::guard('admin')->user()->foto : asset('admin-lte').'/dist/img/user2-160x160.jpg'}}" class="user-image" alt="User Image">
-                                <span class="hidden-xs">{{Auth::guard('admin')->user()->nama_user}}</span>
+                                <span class="hidden-xs">{{Auth::guard('admin')->user()->nama}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
@@ -107,7 +107,7 @@
                         <img src="{{Auth::guard('admin')->user()->foto != '' ? asset('image').'/'.Auth::guard('admin')->user()->foto : asset('admin-lte').'/dist/img/user2-160x160.jpg'}}" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>{{Auth::guard('admin')->user()->nama_user}}</p>
+                        <p>{{Auth::guard('admin')->user()->nama}}</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> {{Auth::guard('admin')->user()->role}}</a>
                     </div>
                 </div>  
@@ -119,68 +119,27 @@
                             <i class="fa fa-home"></i> <span>Dashboard</span>                            
                         </a>
                     </li>
-                    {{-- //menentukan hak akses user --}}
-                    @if(AppHelper::access(['Admin']))
-                        <li class="{{$template->menu == 'satuan-kerja' ? 'active' : ''}}">
-                            <a href="{{route('admin.satuan-kerja.index')}}"  >
-                                <i class="fa fa-group"></i> 
-                                <span>Satuan Kerja</span>
-                            </a>
-                        </li>   
-                    @endif
                     @if(AppHelper::access(['Admin']))
                         <li class="{{$template->menu == 'user' ? 'active' : ''}}">
-                            <a href="{{route('admin.user.index')}}"  >
-                                <i class="fa fa-user"></i> 
-                                <span>Manajemen User</span>
-                            </a>
-                        </li>   
-                    @endif
-                    @if(AppHelper::access(['Operator','Admin']))
-                        <li class="{{$template->menu == 'lpj' ? 'active' : ''}}">
-                            <a href="{{route('admin.lpj.index')}}"  >
-                                <i class="fa fa-book"></i> 
-                                <span>LPJ</span>
+                            <a href="{{route('user.index')}}"  >
+                                <i class="fa fa-group"></i> 
+                                <span>Manajemen Pengguna</span>
                             </a>
                         </li>   
                     @endif
                     @if(AppHelper::access(['Admin']))
-                        <li class="{{$template->menu == 'rekening' ? 'active' : ''}}">
-                            <a href="{{route('admin.rekening.index')}}"  >
-                                <i class="fa fa-book"></i> 
-                                <span>Rekening</span>
+                        <li class="{{$template->menu == 'bidang' ? 'active' : ''}}">
+                            <a href="{{route('bidang.index')}}"  >
+                                <i class="fa fa-cogs"></i> 
+                                <span>Manajemen Bidang</span>
                             </a>
                         </li>   
                     @endif
                     @if(AppHelper::access(['Admin']))
-                        <li class="{{$template->menu == 'spm-admin' ? 'active' : ''}}">
-                            <a href="{{route('admin.spm-admin.index')}}"  >
-                                <i class="fa fa-book"></i> 
-                                <span>SPM</span>
-                            </a>
-                        </li>   
-                    @endif
-                    @if(AppHelper::access(['Operator']))
-                    <li class="{{$template->menu == 'spm' ? 'active' : ''}}">
-                        <a href="{{route('admin.spm.index')}}"  >
-                            <i class="fa fa-book"></i> 
-                            <span>SPM</span>
-                        </a>
-                    </li>   
-                    @endif
-                    @if(AppHelper::access(['Operator','Admin']))
-                        <li class="{{$template->menu == 'transaksi' ? 'active' : ''}}">
-                            <a href="{{route('admin.transaksi.index')}}"  >
-                                <i class="fa fa-book"></i> 
-                                <span>Transaksi</span>
-                            </a>
-                        </li>   
-                    @endif
-                    @if(AppHelper::access(['Admin','Operator']))
-                        <li class="{{$template->menu == 'rekonsiliasi' ? 'active' : ''}}">
-                            <a href="{{route('admin.rekonsiliasi.index')}}"  >
-                                <i class="fa fa-handshake-o"></i> 
-                                <span>Rekonsiliasi</span>
+                        <li class="{{$template->menu == 'jabatan' ? 'active' : ''}}">
+                            <a href="{{route('jabatan.index')}}"  >
+                                <i class="fa fa-cogs"></i> 
+                                <span>Manajemen Jabatan</span>
                             </a>
                         </li>   
                     @endif

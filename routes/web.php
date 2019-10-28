@@ -12,5 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
+});
+
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('dashboard','DashboardController@index')->name('admin.dashboard.index');
+    Route::get('profile','UserController@profile')->name('admin.user.profile');
+    Route::post('profile','UserController@updateProfile')->name('admin.user.profile.update');
+    Route::resources([
+        'user' => 'UserController',
+        'bidang' => 'BidangController',
+        'jabatan' => 'JabatanController'
+    ]);
 });
