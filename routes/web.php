@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resources([
         'user' => 'UserController',
         'bidang' => 'BidangController',
-        'jabatan' => 'JabatanController'
+        'jabatan' => 'JabatanController',
+        'kode-surat' => 'KodeSuratController',
+        'surat-masuk' => 'SuratMasukController'
     ]);
 });

@@ -113,13 +113,19 @@
                 </div>  
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">MAIN NAVIGATION</li>
                     <li class="" class="{{$template->menu == 'dashboard' ? 'active' : ''}}">
                         <a href="{{route('admin.dashboard.index')}}">
                             <i class="fa fa-home"></i> <span>Dashboard</span>                            
                         </a>
                     </li>
+                    <li class="{{$template->menu == 'surat-masuk' ? 'active' : ''}}">
+                        <a href="{{route('surat-masuk.index')}}"  >
+                            <i class="fa fa-envelope"></i> 
+                            <span>Surat Masuk</span>
+                        </a>
+                    </li>   
                     @if(AppHelper::access(['Admin']))
+                        <li class="header" style="text-align:center">MASTER DATA</li>
                         <li class="{{$template->menu == 'user' ? 'active' : ''}}">
                             <a href="{{route('user.index')}}"  >
                                 <i class="fa fa-group"></i> 
@@ -137,9 +143,17 @@
                     @endif
                     @if(AppHelper::access(['Admin']))
                         <li class="{{$template->menu == 'jabatan' ? 'active' : ''}}">
-                            <a href="{{route('jabatan.index')}}"  >
+                            <a href="{{route('jabatan.index')}}">
                                 <i class="fa fa-cogs"></i> 
                                 <span>Manajemen Jabatan</span>
+                            </a>
+                        </li>   
+                    @endif
+                    @if(AppHelper::access(['Admin']))
+                        <li class="{{$template->menu == 'kode-surat' ? 'active' : ''}}">
+                            <a href="{{route('kode-surat.index')}}"  >
+                                <i class="fa fa-cogs"></i> 
+                                <span>Manajemen Kode Surat</span>
                             </a>
                         </li>   
                     @endif
