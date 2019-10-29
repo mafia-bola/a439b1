@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth'], function(){
         'bidang' => 'BidangController',
         'jabatan' => 'JabatanController',
         'kode-surat' => 'KodeSuratController',
-        'surat-masuk' => 'SuratMasukController'
     ]);
+
+    Route::get('surat','SuratController@index')->name('surat.index');
+    Route::get('surat/create','SuratController@create')->name('surat.create');
+    Route::post('surat','SuratController@store')->name('surat.store');
 });

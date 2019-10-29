@@ -118,10 +118,10 @@
                             <i class="fa fa-home"></i> <span>Dashboard</span>                            
                         </a>
                     </li>
-                    <li class="{{$template->menu == 'surat-masuk' ? 'active' : ''}}">
-                        <a href="{{route('surat-masuk.index')}}"  >
+                    <li class="{{$template->menu == 'surat' ? 'active' : ''}}">
+                        <a href="{{route('surat.index')}}"  >
                             <i class="fa fa-envelope"></i> 
-                            <span>Surat Masuk</span>
+                            <span>Surat Menyurat</span>
                         </a>
                     </li>   
                     @if(AppHelper::access(['Admin']))

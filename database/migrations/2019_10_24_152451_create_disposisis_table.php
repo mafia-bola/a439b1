@@ -20,6 +20,7 @@ class CreateDisposisisTable extends Migration
             $table->bigInteger('dari_posisi')->unsigned();
             $table->bigInteger('ke_posisi')->unsigned();
             $table->bigInteger('surat_id')->unsigned();
+            $table->text('keterangan');
             $table->timestamps();
 
             $table->foreign('dari_user')->references('id')->on('users');

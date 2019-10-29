@@ -26,9 +26,6 @@ class KodeSuratController extends Controller
 
     private function form()
     {
-        $subs = KodeSurat::select('id as value','keterangan as name')
-            ->get();
-        //TODO: Ini belum selesai
         return [
             [
                 'label' => 'Kode Surat', 
