@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Disposisi;
+use App\Helpers\AppHelper;
+use App\Helpers\ControllerTrait;
 use App\KodeSurat;
 use App\Surat;
 use App\User;
@@ -10,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 
 class SuratController extends Controller
 {
+    use ControllerTrait;
+
     private $template = [
         'title' => 'Surat Menyurat',
         'route' => 'surat',
@@ -28,7 +33,7 @@ class SuratController extends Controller
                 'name' => $value->kode_surat.' ('.$value->keterangan.')'
             ];
         }
-        $kategori = [
+        $tipe = [
             [
                 'value' => 'Masuk',
                 'name' => 'Masuk'
@@ -36,6 +41,24 @@ class SuratController extends Controller
             [
                 'value' => 'Keluar',
                 'name' => 'Keluar'
+            ]
+        ];
+        $kategori = [
+            [
+                'value' => 'Biasa',
+                'name' => 'Biasa',
+            ],
+            [
+                'value' => 'Penting',
+                'name' => 'Penting'
+            ],
+            [
+                'value' => 'Rahasia',
+                'name' => 'Rahasia'
+            ],
+            [
+                'value' => 'Sangat Rahasia',
+                'name' => 'Sangat Rahasia'
             ]
         ];
         $user = User::whereNotIn('id',[Auth::user()->id])
@@ -49,10 +72,22 @@ class SuratController extends Controller
         }
         return [
             [
+                'label' => 'Tipe',
+                'name' => 'tipe',
+                'type' => 'select',
+                'option' => $tipe,
+                'view_index' => true
+            ],
+            [
                 'label' => 'Nomor Surat', 
                 'name' => 'no_surat',
                 'view_index' => true
             ],
+            [
+                'label' => 'Judul Surat', 
+                'name' => 'judul',
+                'view_index' => true
+            ],  
             [
                 'label' => 'Kode Surat',
                 'name' => 'kode_surat',
@@ -76,6 +111,7 @@ class SuratController extends Controller
             [
                 'label' => 'Keterangan Surat',
                 'name' => 'keterangan',
+                'type' => 'textarea',
                 'view_index' => true
             ],
             [
@@ -118,6 +154,27 @@ class SuratController extends Controller
 
     public function store(Request $request)
     {
-        
+        $this->formValidation($request,[
+            'file_surat' => 'required|mimetypes:application/pdf,image/png,image/jpg,image/jpeg'
+        ]);
+        $uploader = AppHelper::uploader($this->form(),$request);
+        $surat = Surat::create([
+            'no_surat' => $request->no_surat,
+            'kode_surat_id' => $request->kode_surat,
+            'kategori' => $request->kategori,
+            'tipe' => $request->tipe,
+            'kategori' => $request->kategori,
+            'judul' => $request->judul,
+            'keterangan' => $request->keterangan,
+            'file_surat' => $uploader['file_surat'],
+            'status' => 0
+        ]);
+        //FIXME: Lanjutkan
+        // Disposisi::create([
+        //     'dari_user' => Auth::user()->id,
+        //     'ke_user' => $request->ke_user,
+        //     'dari_posisi' => 1,
+        //     'k'
+        // ]);
     }
 }

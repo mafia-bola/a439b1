@@ -8,6 +8,7 @@ use App\Jabatan;
 use App\User;
 use Illuminate\Http\Request;
 use App\Helpers\Alert;
+use App\Posisi;
 use Auth;
 
 class UserController extends Controller
@@ -44,6 +45,9 @@ class UserController extends Controller
         $jabatan = Jabatan::select('id as value','nama_jabatan as name')
             ->get();
         $bidang = Bidang::select('id as value','nama_bidang as name')
+            ->get();
+        $posisi = Posisi::select('id as value','nama_posisi as name')
+            ->where('status',1)
             ->get();
         return [
             [
@@ -105,6 +109,13 @@ class UserController extends Controller
                 'type' => 'select',
                 'option' => $bidang,
                 'view_relation' => 'bidang->nama_bidang'
+            ],
+            [
+                'label' => 'Posisi',
+                'name' => 'posisi_id',
+                'type' => 'select',
+                'option' => $posisi,
+                'view_relation' => 'posisi->nama_posisi'
             ],
             [
                 'label' => 'Role',

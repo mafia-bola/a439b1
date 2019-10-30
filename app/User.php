@@ -37,4 +37,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Bidang::class);
     }
+
+    public function posisi()
+    {
+        return $this->belongsTo(Posisi::class);
+    }
 }

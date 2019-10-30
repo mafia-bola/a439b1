@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth'], function(){
         'bidang' => 'BidangController',
         'jabatan' => 'JabatanController',
         'kode-surat' => 'KodeSuratController',
+        'posisi' => 'PosisiController',
+        'alur' => 'AlurController',
+        'alur-posisi' => 'AlurPosisiController'
     ]);
 
     Route::get('surat','SuratController@index')->name('surat.index');

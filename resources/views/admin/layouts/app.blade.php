@@ -157,6 +157,30 @@
                             </a>
                         </li>   
                     @endif
+                    @if(AppHelper::access(['Admin']))
+                        <li class="{{$template->menu == 'posisi' ? 'active' : ''}}">
+                            <a href="{{route('posisi.index')}}"  >
+                                <i class="fa fa-cogs"></i> 
+                                <span>Manajemen Posisi</span>
+                            </a>
+                        </li>   
+                    @endif
+                    @if(AppHelper::access(['Admin']))
+                        <li class="{{$template->menu == 'alur' ? 'active' : ''}}">
+                            <a href="{{route('alur.index')}}"  >
+                                <i class="fa fa-cogs"></i> 
+                                <span>Manajemen Alur</span>
+                            </a>
+                        </li>   
+                    @endif
+                    @if(AppHelper::access(['Admin']))
+                        <li class="{{$template->menu == 'alur-posisi' ? 'active' : ''}}">
+                            <a href="{{route('alur-posisi.index')}}"  >
+                                <i class="fa fa-cogs"></i> 
+                                <span>Manajemen Alur Posisi</span>
+                            </a>
+                        </li>   
+                    @endif
                 </ul>
             </section>
             <!-- /.sidebar -->

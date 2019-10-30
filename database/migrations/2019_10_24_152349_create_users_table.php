@@ -27,11 +27,13 @@ class CreateUsersTable extends Migration
             $table->string('role');
             $table->bigInteger('jabatan_id')->unsigned();
             $table->bigInteger('bidang_id')->unsigned();
+            $table->bigInteger('posisi_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('jabatan_id')->references('id')->on('jabatan');
             $table->foreign('bidang_id')->references('id')->on('bidang');
+            $table->foreign('posisi_id')->references('id')->on('posisi');
         });
     }
 

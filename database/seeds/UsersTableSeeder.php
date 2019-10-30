@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
             'tempat_lahir' => 'Laboratorium',
             'jabatan_id' => 1,
             'bidang_id' => 1,
+            'posisi_id' => 1,
             'status' => 'Aktif',
             'username' => 'admin',
             'password' => bcrypt(123456),
