@@ -7,9 +7,11 @@ use App\Helpers\AppHelper;
 use App\Helpers\ControllerTrait;
 use App\KodeSurat;
 use App\Surat;
+use App\UserSurat;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SuratController extends Controller
 {
@@ -94,7 +96,7 @@ class SuratController extends Controller
                 'type' => 'select',
                 'option' => $kode,
                 'view_index' => true,
-                'view_relation' => 'kode->kode_surat'
+                'view_relation' => 'kodeSurat->kode_surat'
             ],
             [
                 'label' => 'Kategori',
@@ -109,16 +111,17 @@ class SuratController extends Controller
                 'type' => 'file'
             ],
             [
+                'label' => 'Kirim Ke',
+                'name' => 'user_id',
+                'type' => 'select2m',
+                'option' => $users,
+                'attr' => 'multiple'
+            ],
+            [
                 'label' => 'Keterangan Surat',
                 'name' => 'keterangan',
                 'type' => 'textarea',
                 'view_index' => true
-            ],
-            [
-                'label' => 'Disposisikan Ke',
-                'name' => 'ke_user',
-                'type' => 'select',
-                'option' => $users
             ],
             [
                 'label' => 'Keterangan Disposisi',
@@ -136,7 +139,7 @@ class SuratController extends Controller
         if($request->has('tipe')){
             $tipe = $request->tipe;
         }
-        $data = Surat::where('kategori',$tipe)
+        $data = Surat::where('tipe',$tipe)
             ->get();
         return view('admin.surat.index', compact('template','form','data'));
     }
@@ -158,23 +161,46 @@ class SuratController extends Controller
             'file_surat' => 'required|mimetypes:application/pdf,image/png,image/jpg,image/jpeg'
         ]);
         $uploader = AppHelper::uploader($this->form(),$request);
-        $surat = Surat::create([
-            'no_surat' => $request->no_surat,
-            'kode_surat_id' => $request->kode_surat,
-            'kategori' => $request->kategori,
-            'tipe' => $request->tipe,
-            'kategori' => $request->kategori,
-            'judul' => $request->judul,
-            'keterangan' => $request->keterangan,
-            'file_surat' => $uploader['file_surat'],
-            'status' => 0
-        ]);
-        //FIXME: Lanjutkan
-        // Disposisi::create([
-        //     'dari_user' => Auth::user()->id,
-        //     'ke_user' => $request->ke_user,
-        //     'dari_posisi' => 1,
-        //     'k'
-        // ]);
+        DB::transaction(function() use  ($uploader, $request){
+            $surat = Surat::create([
+                'no_surat' => $request->no_surat,
+                'kode_surat_id' => $request->kode_surat,
+                'kategori' => $request->kategori,
+                'tipe' => $request->tipe,
+                'kategori' => $request->kategori,
+                'judul' => $request->judul,
+                'keterangan' => $request->keterangan,
+                'file_surat' => $uploader['file_surat'],
+                'status' => 0
+            ]);
+            foreach ($request->user_id as $user) {
+                $su = UserSurat::create([
+                    'user_id' => $user,
+                    'surat_id' => $surat->id,
+                ]);
+                Disposisi::create([
+                    'dari_user' => Auth::user()->id,
+                    'ke_user' => $user,
+                    'keterangan' => $request->keterangan_disposisi,
+                    'user_surat_id' => $su->id
+                ]);
+            }
+        });
+        return redirect(route('surat.index'));
+    }
+
+    public function edit($id)
+    {
+        
+    }
+
+    public function show($id)
+    {
+        
+    }
+
+    public function destroy($id)
+    {
+        
     }
 }

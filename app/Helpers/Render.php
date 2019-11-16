@@ -47,6 +47,14 @@ class Render
             if (($self->method == 'add' && $self->hideAdd == false) || ($self->method == 'edit' && $self->hideEdit == false)) {
                 return $self->select($data);
             }
+        }else if($self->type == "select2"){
+            if (($self->method == 'add' && $self->hideAdd == false) || ($self->method == 'edit' && $self->hideEdit == false)) {
+                return $self->select2($data);
+            }
+        }else if($self->type == "select2m"){
+            if (($self->method == 'add' && $self->hideAdd == false) || ($self->method == 'edit' && $self->hideEdit == false)) {
+                return $self->select2m($data);
+            }
         } else if ($self->type == "datepicker") {
             if (($self->method == 'add' && $self->hideAdd == false) || ($self->method == 'edit' && $self->hideEdit == false)) {
                 return $self->datepicker($data);
@@ -284,6 +292,56 @@ class Render
 			<div class='form-group'>
 				<label for=\"$this->name\">$this->label</label>
 				<select name='$this->name' $this->required id=\"$this->name\" class=\"form-control\">
+					$option
+				</select>   	
+			</div>
+        ";
+    }
+
+    public function select2($data)
+    {
+        $this->required = ($this->required == "required") ? "required='required'" : "";
+        $opt =     (object)$this->option;
+
+        if ($data == null) {
+            $value = old("$this->name");
+        } else {
+            $value = $data->{$this->name};
+        }
+
+        $option = '';
+        foreach ($opt as $list) {
+            $option .= "<option " . AppHelper::selected($value, $list['value']) . " value='$list[value]'>$list[name]</option>";
+        }
+        return "
+			<div class='form-group'>
+				<label style=\"display:block\" for=\"$this->name\">$this->label</label>
+				<select $this->attr name='$this->name' $this->required id=\"$this->name\" class=\"form-control select2\" style=\"width: 100%\">
+					$option
+				</select>   	
+			</div>
+        ";
+    }
+
+    public function select2m($data)
+    {
+        $this->required = ($this->required == "required") ? "required='required'" : "";
+        $opt =     (object)$this->option;
+
+        if ($data == null) {
+            $value = old("$this->name");
+        } else {
+            $value = $data->{$this->name};
+        }
+
+        $option = '';
+        foreach ($opt as $list) {
+            $option .= "<option " . AppHelper::selected($value, $list['value']) . " value='$list[value]'>$list[name]</option>";
+        }
+        return "
+			<div class='form-group'>
+				<label style=\"display:block\" for=\"$this->name\">$this->label</label>
+				<select multiple name='$this->name[]' $this->required id=\"$this->name\" class=\"form-control select2\" style=\"width: 100%\">
 					$option
 				</select>   	
 			</div>

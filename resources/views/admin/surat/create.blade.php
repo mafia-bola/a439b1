@@ -9,6 +9,7 @@
             text-align: center;
         } */
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
     @php
@@ -86,6 +87,7 @@
 @endsection
 @push('js')
     <script src="{{asset('admin-lte/bower_components/ckeditor/ckeditor.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <!-- page script -->
     <script>
     $(function () {
@@ -99,5 +101,9 @@
         'autoWidth'   : false
         })
     })
+
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
     </script>
 @endpush

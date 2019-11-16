@@ -23,11 +23,9 @@ class CreateSuratsTable extends Migration
             $table->text('keterangan');
             $table->text('file_surat');
             $table->string('status');
-            $table->bigInteger('posisi_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('kode_surat_id')->references('id')->on('kode_surat');
-            $table->foreign('posisi_id')->references('id')->on('posisi');
         });
     }
 

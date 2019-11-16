@@ -46,9 +46,6 @@ class UserController extends Controller
             ->get();
         $bidang = Bidang::select('id as value','nama_bidang as name')
             ->get();
-        $posisi = Posisi::select('id as value','nama_posisi as name')
-            ->where('status',1)
-            ->get();
         return [
             [
                 'label' => 'Nama Pengguna', 
@@ -109,13 +106,6 @@ class UserController extends Controller
                 'type' => 'select',
                 'option' => $bidang,
                 'view_relation' => 'bidang->nama_bidang'
-            ],
-            [
-                'label' => 'Posisi',
-                'name' => 'posisi_id',
-                'type' => 'select',
-                'option' => $posisi,
-                'view_relation' => 'posisi->nama_posisi'
             ],
             [
                 'label' => 'Role',

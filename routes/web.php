@@ -33,5 +33,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('surat','SuratController@index')->name('surat.index');
     Route::get('surat/create','SuratController@create')->name('surat.create');
+    Route::get('surat/{id}/edit','SuratController@edit')->name('surat.edit');
+    Route::get('surat/{id}','SuratController@show')->name('surat.show');
+    Route::delete('surat/{id}', 'SuratController@destroy')->name('surat.destroy');
     Route::post('surat','SuratController@store')->name('surat.store');
 });

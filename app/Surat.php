@@ -8,9 +8,19 @@ class Surat extends Model
 {
     protected $table = 'surat';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'no_surat',
+        'kode_surat_id',
+        'kategori',
+        'tipe',
+        'kategori',
+        'judul',
+        'keterangan',
+        'file_surat',
+        'status'
+    ];
 
-    public function kode()
+    public function kodeSurat()
     {
         return $this->belongsTo(KodeSurat::class);
     }
