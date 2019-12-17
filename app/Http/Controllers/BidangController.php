@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Bidang;
+use App\Helpers\Alert;
 use App\Helpers\ControllerTrait;
 use App\User;
 use Illuminate\Http\Request;
-use App\Helpers\Alert;
 use Auth;
 
 class BidangController extends Controller
@@ -38,7 +38,7 @@ class BidangController extends Controller
         ];
         return [
             [
-                'label' => 'Nama Bidang', 
+                'label' => 'Nama Bidang',
                 'name' => 'nama_bidang',
                 'view_index' => true
             ],
