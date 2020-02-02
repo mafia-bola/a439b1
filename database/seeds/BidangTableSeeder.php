@@ -12,9 +12,11 @@ class BidangTableSeeder extends Seeder
      */
     public function run()
     {
-        Bidang::create([
-            'nama_bidang' => 'Administrator',
-            'status' => 'Tidak Aktif'
-        ]);
+        Bidang::create(
+            [
+                'nama_bidang' => 'Sekertariat',
+                'status' => 'Aktif'
+            ],
+        );
     }
 }

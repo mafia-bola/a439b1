@@ -30,7 +30,8 @@ class UserController extends Controller
     {
         $role = [
             ['value' => 'Admin','name' => 'Admin'],
-            ['value' => 'Operator','name' => 'Operator'],
+            ['value' => 'User','name' => 'User'],
+            ['value' => 'Verifikasi','name' => 'Verifikasi'],
         ];
         $status = [
             [

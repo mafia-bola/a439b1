@@ -13,14 +13,14 @@ use App\Helpers\ControllerTrait;
 use Illuminate\Http\Request;
 use App\Helpers\Alert;
 
-class SuratMasukController extends Controller
+class SuratKeluarController extends Controller
 {
     use ControllerTrait;
 
     private $template = [
         'title' => 'Surat',
-        'route' => 'surat-masuk',
-        'menu' => 'surat-masuk',
+        'route' => 'surat-keluar',
+        'menu' => 'surat-keluar',
         'icon' => 'fa fa-cogs',
         'theme' => 'skin-blue',
         'config' => [
@@ -84,7 +84,7 @@ class SuratMasukController extends Controller
                 'label' => 'Tipe',
                 'name' => 'tipe',
                 'type' => 'hidden',
-                'value' => 'Masuk',
+                'value' => 'Keluar',
                 'view_index' => true
             ],
             [
@@ -154,10 +154,10 @@ class SuratMasukController extends Controller
      */
     public function index()
     {
-        $data = Surat::where('tipe','Masuk')->get();
+        $data = Surat::where('tipe','Keluar')->get();
         $form = $this->form();
         $template = (object) $this->template;
-        return view('admin.surat-masuk.index',compact('data','form','template'));
+        return view('admin.surat-keluar.index',compact('data','form','template'));
     }
 
     /**
@@ -169,7 +169,7 @@ class SuratMasukController extends Controller
     {
         $template = (object) $this->template;
         $form = $this->form();
-        return view('admin.surat-masuk.create', compact('template','form'));
+        return view('admin.surat-keluar.create', compact('template','form'));
     }
 
     /**
@@ -219,7 +219,7 @@ class SuratMasukController extends Controller
         $form = $this->form();
         $template = (object) $this->template;
         $data = Surat::findOrFail($id);
-        return view('admin.surat-masuk.show',compact('form','template','data'));
+        return view('admin.surat-keluar.show',compact('form','template','data'));
     }
 
     /**
@@ -233,7 +233,7 @@ class SuratMasukController extends Controller
         $form = $this->form();
         $template = (object) $this->template;
         $data = Surat::findOrFail($id);
-        return view('admin.surat-masuk.edit',compact('form','template','data'));
+        return view('admin.surat-keluar.edit',compact('form','template','data'));
     }
 
     /**

@@ -31,6 +31,7 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('admin-lte')}}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -118,12 +119,18 @@
                             <i class="fa fa-home"></i> <span>Dashboard</span>                            
                         </a>
                     </li>
-                    <li class="{{$template->menu == 'surat' ? 'active' : ''}}">
-                        <a href="{{route('surat.index')}}"  >
+                    <li class="{{$template->menu == 'surat-masuk' ? 'active' : ''}}">
+                        <a href="{{route('surat-masuk.index')}}"  >
                             <i class="fa fa-envelope"></i> 
-                            <span>Surat Menyurat</span>
+                            <span>Surat Masuk</span>
                         </a>
                     </li>   
+                    <li class="{{$template->menu == 'surat-keluar' ? 'active' : ''}}">
+                        <a href="{{route('surat-keluar.index')}}"  >
+                            <i class="fa fa-envelope"></i> 
+                            <span>Surat Keluar</span>
+                        </a>
+                    </li> 
                     @if(AppHelper::access(['Admin']))
                         <li class="header" style="text-align:center">MASTER DATA</li>
                         <li class="{{$template->menu == 'user' ? 'active' : ''}}">
@@ -213,6 +220,7 @@
     <script src="{{asset('admin-lte')}}/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="{{asset('admin-lte')}}/bower_components/fastclick/lib/fastclick.js"></script>
+    
     <!-- AdminLTE App -->
     <script src="{{asset('admin-lte')}}/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -227,6 +235,8 @@
         })
 
         $('ckeditor').ckeditor();
+
+        
 
         $('.number-only').keyup(function(){
             var value = $(this).val();

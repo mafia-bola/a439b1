@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function(){
         'jabatan' => 'JabatanController',
         'kode-surat' => 'KodeSuratController',
         'posisi' => 'PosisiController',
+        'surat-masuk' => 'SuratMasukController',
+        'surat-keluar' => 'SuratKeluarController',
         'alur' => 'AlurController',
         'alur-posisi' => 'AlurPosisiController'
     ]);
