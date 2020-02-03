@@ -30,4 +30,14 @@ class Disposisi extends Model
 {
     protected $table= 'disposisi';
     protected $guarded = [];
+
+    public function dariUser()
+    {
+        return $this->belongsTo(User::class,'dari_user');
+    }
+
+    public function keUser()
+    {
+        return $this->belongsTo(User::class,'ke_user');
+    }
 }

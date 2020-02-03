@@ -22,6 +22,7 @@ class CreateSuratsTable extends Migration
             $table->string('judul');
             $table->text('keterangan');
             $table->text('file_surat');
+            $table->integer('posisi_surat')->nullable();
             $table->string('status');
             $table->timestamps();
 

@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function(){
         'bidang' => 'BidangController',
         'jabatan' => 'JabatanController',
         'kode-surat' => 'KodeSuratController',
+        'disposisi' => 'DisposisiController',
         'posisi' => 'PosisiController',
         'surat-masuk' => 'SuratMasukController',
         'surat-keluar' => 'SuratKeluarController',

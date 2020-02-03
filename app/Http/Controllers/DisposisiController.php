@@ -13,18 +13,19 @@ use App\Helpers\ControllerTrait;
 use Illuminate\Http\Request;
 use App\Helpers\Alert;
 
-class SuratKeluarController extends Controller
+class DisposisiController extends Controller
 {
     use ControllerTrait;
 
     private $template = [
-        'title' => 'Surat',
-        'route' => 'surat-keluar',
-        'menu' => 'surat-keluar',
-        'icon' => 'fa fa-cogs',
+        'title' => 'Disposisi',
+        'route' => 'disposisi',
+        'menu' => 'disposisi',
+        'icon' => 'fa fa-check',
         'theme' => 'skin-blue',
         'config' => [
-            'index.delete.is_show' => false
+            'index.delete.is_show' => false,
+            'index.edit.is_show' => false
         ]
     ];
 
@@ -167,15 +168,22 @@ class SuratKeluarController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role == 'Admin'){
+            $posisiSurat = 'Verifikasi Operator';
+        }else{
+            $posisiSurat = 'Verifikasi Sekertaris';
+        }
+
         $data = Surat::select('*','surat.id as pid')
         ->where('tipe','Keluar')
+        ->where('posisi_surat',$posisiSurat)
         ->join('disposisi','disposisi.surat_id','=','surat.id')
-        ->where('disposisi.dari_user',Auth::user()->id)
+        ->where('disposisi.ke_user',Auth::user()->id)
         ->groupBy('surat.id')
         ->get();
         $form = $this->form();
         $template = (object) $this->template;
-        return view('admin.surat-keluar.index',compact('data','form','template'));
+        return view('admin.disposisi.index',compact('data','form','template'));
     }
 
     /**
@@ -187,7 +195,7 @@ class SuratKeluarController extends Controller
     {
         $template = (object) $this->template;
         $form = $this->form();
-        return view('admin.surat-keluar.create', compact('template','form'));
+        return view('admin.disposisi.create', compact('template','form'));
     }
 
     /**
@@ -198,42 +206,36 @@ class SuratKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->formValidation($request);
-        
-       
-
-
-        $uploader = AppHelper::uploader($this->form(),$request);
-        DB::transaction(function() use  ($uploader, $request){
-            if(Auth::user()->role == 'User'){
-                $posisiSurat = 'Verifikasi Operator';
+       if($request->action == 'acc'){
+           if(Auth::user()->role == 'Admin'){
+               $posisiSurat = 'Verifikasi Sekertaris';
+               $keUser = 2;
+           }else{
+               $posisiSurat = 'Surat Terkirim';
+               $keUser = 2;
+           }
+       }else{
+            if(Auth::user()->role == 'Admin'){
+                $posisiSurat = 'Surat Dikembalikan';
+                $keUser = Disposisi::where('surat_id',$request->surat_id)->first();
+            }else{
+                $posisiSurat = 'Verifikasi Admin';
                 $keUser = 1;
-            }else if(Auth::user()->role == 'Admin'){
-                $posisiSurat = 'Verifikasi Sekertaris';
-                $keUser = 2;
             }
-            $surat = Surat::create([
-                'tipe' => $request->tipe,
-                'no_surat' => $request->no_surat,
-                'judul' => $request->judul,
-                'kode_surat_id' => $request->kode_surat,
-                'kategori' => $request->kategori, 
-                'keterangan' => $request->keterangan,
-                'file_surat' => $uploader['file_surat'],
-                'posisi_surat' => $posisiSurat,
-                'status' => 'Aktif'
-            ]);
+       }
 
-           
-                Disposisi::create([
-                    'dari_user' => Auth::user()->id,
-                    'ke_user' => $keUser,
-                    'keterangan' => $request->keterangan_disposisi,
-                    'surat_id' => $surat->id
-                ]);
-        });
-        Alert::make('success','Berhasil mengirim surat');
-        return redirect(route($this->template['route'].'.index'));
+        $surat = Surat::where('id',$request->surat_id)
+                ->update(['posisi_surat' => $posisiSurat]);
+        
+        Disposisi::create([
+            'dari_user' => Auth::user()->id,
+            'ke_user' => $keUser,
+            'surat_id' => $request->surat_id,
+            'keterangan' => $request->keterangan
+        ]);
+
+        Alert::make('success','Berhasil disposisikan Surat');
+        return redirect(route('disposisi.index'));
     }
 
     /**
@@ -262,7 +264,7 @@ class SuratKeluarController extends Controller
         $form = $this->form();
         $template = (object) $this->template;
         $data = Surat::findOrFail($id);
-        return view('admin.surat-keluar.edit',compact('form','template','data'));
+        return view('admin.disposisi.edit',compact('form','template','data'));
     }
 
     /**

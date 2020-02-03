@@ -18,5 +18,12 @@ class BidangTableSeeder extends Seeder
                 'status' => 'Aktif'
             ],
         );
+
+        Bidang::create(
+            [
+                'nama_bidang' => 'Pelaporan',
+                'status' => 'Aktif'
+            ],
+        );
     }
 }

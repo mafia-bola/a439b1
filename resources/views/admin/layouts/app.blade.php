@@ -131,6 +131,12 @@
                             <span>Surat Keluar</span>
                         </a>
                     </li> 
+                    <li class="{{$template->menu == 'disposisi' ? 'active' : ''}}">
+                        <a href="{{route('disposisi.index')}}"  >
+                            <i class="fa fa-check"></i> 
+                            <span>Disposisi</span>
+                        </a>
+                    </li> 
                     @if(AppHelper::access(['Admin']))
                         <li class="header" style="text-align:center">MASTER DATA</li>
                         <li class="{{$template->menu == 'user' ? 'active' : ''}}">

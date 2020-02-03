@@ -27,5 +27,20 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt(123456),
             'role' => 'Admin'
         ]);
+
+        User::create([
+            'nama' => 'Sekertaris',
+            'nip' => '0',
+            'alamat' => '-',
+            'telepon' => '-',
+            'tanggal_lahir' => Carbon::now(),
+            'tempat_lahir' => 'Laboratorium',
+            'jabatan_id' => 3,
+            'bidang_id' => 1,
+            'status' => 'Aktif',
+            'username' => 'sekertaris',
+            'password' => bcrypt(123456),
+            'role' => 'Verifikasi'
+        ]);
     }
 }

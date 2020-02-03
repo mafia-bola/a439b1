@@ -46,6 +46,7 @@ class Surat extends Model
         'tipe',
         'kategori',
         'judul',
+        'posisi_surat',
         'keterangan',
         'file_surat',
         'status'

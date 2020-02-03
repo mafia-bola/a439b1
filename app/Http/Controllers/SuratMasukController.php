@@ -154,7 +154,9 @@ class SuratMasukController extends Controller
      */
     public function index()
     {
-        $data = Surat::where('tipe','Masuk')->get();
+        $data = Surat::select('*','surat.id as pid')
+                        ->where('tipe','Masuk')
+                        ->get();
         $form = $this->form();
         $template = (object) $this->template;
         return view('admin.surat-masuk.index',compact('data','form','template'));
@@ -219,7 +221,8 @@ class SuratMasukController extends Controller
         $form = $this->form();
         $template = (object) $this->template;
         $data = Surat::findOrFail($id);
-        return view('admin.surat-masuk.show',compact('form','template','data'));
+        $disposisi = Disposisi::where('surat_id',$id)->get();
+        return view('admin.disposisi.show',compact('form','template','data','disposisi'));
     }
 
     /**

@@ -87,6 +87,7 @@
                                     </tbody>
                                 </tbody>
                             </table>
+
                             <h2>Riwayat Disposisi</h2>
                             <table class="table">
                                 <thead>
@@ -110,9 +111,17 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            
                         </div>
                         <div class="box-footer">                                
-                            <a href="{{ url()->previous() }}" class="btn btn-default">Kembali</a>
+                            <form action="{{route('disposisi.store')}}" method="post">
+                                @csrf
+                                {!!Render::form(['type' => 'ckeditor','name' => 'keterangan','label' =>'Keterangan Disposisi'])!!}
+                                <input type="hidden" name="surat_id" value="{{$data->id}}">
+                                <button class="btn btn-success" name="action" value="acc">Acc Surat</button>
+                                <button class="btn btn-warning" name="action" value="turunkan">Turunkan Surat</button>
+                                <a href="{{ url()->previous() }}" class="btn btn-default pull-right">Kembali</a>
+                            </form>
                         </div>
                     </div>
                 </div>
